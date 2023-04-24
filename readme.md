@@ -26,4 +26,24 @@ cambiar el scrip para usar 0x y autocanon
     "test": "node src/benchmark.js"
   },
 
+
+mutation{create (data : { 
+title : "Bufanda", thumbnail :"cocochanel " , price : 40 }  ) {
+  id
+}
+}
+
+{
+  getProduct( id : "644299aa3a883b6578925427" ) {
+    id
+    title
+    price
+  }
+}
+mutation{delete (id :"644299aa3a883b6578925427" ) {
+    title
+    thumbnail
+  }
   
+}
+ 

@@ -15,6 +15,9 @@ import { User } from './models/user.models.js';
 import logger from './lib/logger.js';
 import os from 'os';
 import cluster from 'cluster';
+import { graphqlHTTP } from 'express-graphql';
+import schema from './graphql/product.schema.js';
+import { productController } from './controllers/product.controller.js';
 
 
 const app = express();
@@ -93,7 +96,21 @@ passport.deserializeUser((id, done) => {
         .catch((err) => { console.error(err); })
 });
     
-app.use("/",routes);
+//app.use("/",routes);
+
+app.use("/graphql",graphqlHTTP({
+  schema,
+  rootValue: {
+    getAllProducts: productController.getProductos,
+    getProduct : productController.getProductXId,
+    create: productController.nuevoProducto,
+    update: productController.updateProduct,
+    delete: productController.deleteProduct,
+  },
+  graphiql: true,
+})
+);
+  
 
 // app.use(invalidUrl);
 
